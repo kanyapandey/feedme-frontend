@@ -1,0 +1,7 @@
+{
+    "name": "CodeValidate",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CodeValidate.js"
+  }
+  
