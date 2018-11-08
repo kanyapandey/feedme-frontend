@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
-
+import axios from 'axios';
+import 'regenerator-runtime/runtime';
 class FeedHome extends Component {
   constructor(props){
       super(props);
@@ -10,14 +11,34 @@ class FeedHome extends Component {
       this.tracking = this.tracking.bind(this);
       this.updateUser = this.updateUser.bind(this);
 
-      let token = localStorage.getItem('token');
-      console.log("token",token);
-      let count = localStorage.getItem('count');
-      this.state = {
-        count: count,
-      };
-  }
+        this.state = {
+            count: "0",
+        };   
 
+      let userId = localStorage.getItem('userId');
+      var self = this;
+      axios({
+          method: "get",
+          url: "http://localhost:1337/api/v1/feed/getCount/"+ userId
+        }).then(response => {
+          if (response.data.success === true) {
+              console.log("last",response.data.data[0].count)
+              localStorage.setItem('counts', response.data.data[0].count);
+              let count = localStorage.getItem('counts');
+              console.log("now",count);
+              this.state = {
+                  count: count,
+              }; 
+              self.setState({count: count})
+              console.log("this state count now", this.state.count)
+          } else {
+            alert(response.data.msg);
+          }
+        });
+
+        console.log("final count", this.state.count)
+}
+ 
   feedForm(){
       this.props.history.push('/FeedForm');
   }

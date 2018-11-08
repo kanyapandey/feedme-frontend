@@ -28,6 +28,30 @@ class FeedForm extends Component {
     clickHome(){
         this.props.history.push('/feedhome');
     }
+    // home(){
+
+    //     let email = localStorage.getItem('email');
+    //     axios({
+    //         method: "post",
+    //         url: "https://feedforward.iamconsulting.co.th:53093/api/v1/feed/feed-form",
+    //         data: {   
+    //             email: email,
+    //             category: this.state.select,
+    //             subject: this.state.subject,
+    //             rating: this.state.rating,
+    //             description: this.state.description,
+    //             contact: this.state.contact,
+
+    //         }
+    //       }).then(response => {
+    //         if (response.data.success === true) {
+    //             localStorage.setItem('count', response.data.msg);
+    //             this.props.history.push('FeedHome');
+    //         } else {
+    //           alert(response.data.msg);
+    //         }
+    //       });
+    // }
     home(){
 
         let email = localStorage.getItem('email');

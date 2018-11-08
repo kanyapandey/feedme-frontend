@@ -11,6 +11,7 @@ class CodeValidate extends Component {
       };
       this.home = this.home.bind(this);
       this.handleChange = this.handleChange.bind(this);
+      
   }
   handleChange(event)  {
     const target = event.target;
@@ -34,12 +35,62 @@ class CodeValidate extends Component {
             console.log("response",response.data.msg)
             localStorage.setItem('email', response.data.msg['email']);
             localStorage.setItem('userId', response.data.msg['userId']);
-            this.props.history.push('userprofile');
+            this.props.history.push('feedhome');
         } else {
           alert(response.data.msg);
         }
       });
   }
+// home(){
+//     axios({
+//         method: "post",
+//         url: "https://feedforward.iamconsulting.co.th:53093/api/v1/users/checkCode",
+//         data: {   
+//             vCode: this.state.code
+//         }
+//       }).then(response => {
+//         if (response.data.success === true) {
+//             localStorage.setItem('token', response.data.token);
+//             console.log("response",response.data.msg)
+//             localStorage.setItem('email', response.data.msg['email']);
+//             localStorage.setItem('userId', response.data.msg['userId']);
+//             this.props.history.push('feedhome');
+//         } else {
+//           alert(response.data.msg);
+//         }
+//       });
+//   }
+//   componentDidMount(){
+//     let userId = localStorage.getItem('userId');
+//     axios({
+//         method: "get",
+//         url: "https://feedforward.iamconsulting.co.th:53093/api/v1/feed/getCount/"+ userId
+//       }).then(response => {
+//         if (response.data.success === true) {
+//             console.log("response count",response.data.data[0].count)
+//             localStorage.setItem('counts', response.data.data[0].count);
+        
+//         } else {
+//           alert(response.data.msg);
+//         }
+//       });
+//   }
+//   componentDidMount(){
+//     let userId = localStorage.getItem('userId');
+//     axios({
+//         method: "get",
+//         url: "http://localhost:1337/api/v1/feed/getCount/"+ userId
+//       }).then(response => {
+//         if (response.data.success === true) {
+//             console.log("last",response.data.data[0].count)
+//             localStorage.setItem('counts', response.data.data[0].count);
+        
+//         } else {
+//           alert(response.data.msg);
+//         }
+//       });
+//   }
+
   render() {
     return (
         <Container>
