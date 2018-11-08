@@ -1,15 +1,38 @@
 import React, { Component } from 'react';
 import { Card, InputGroup,Input,Breadcrumb, BreadcrumbItem,InputGroupAddon,Container, Row, Col, CardHeader, CardBlock, Table} from 'reactstrap';
-
+import axios from 'axios';
 class Tracking extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            employee: [],
+            loading: true
+          };
         this.clickHome = this.clickHome.bind(this);
+
+        let userId = localStorage.getItem('userId');
+        axios({
+            method: "get",
+            url: "http://localhost:1337/api/v1/feed/getFeed/"+ userId
+          }).then(response => {
+            if (response.data.success === true) {
+                this.setState({
+                    employee: response.data.data,
+                    loading: false
+                  });
+            } else {
+                this.setState({
+                    loading: false
+                  });
+              alert(response.data.msg);
+            }
+          });
     }
     clickHome(){
         this.props.history.push('/feedhome');
     }
   render() {
+    const {employee,loading} = this.state;
     return (
         <Container>
             <br/>
@@ -73,15 +96,31 @@ class Tracking extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+
+                    {!loading
+                      ? employee.map(e => {
+                          return (
+                            <tr>
                             <td>235</td>
-                            <td>Environment</td>
-                            <td>Need tree in office</td>
-                            <td>I love green space</td>
+                            <td>{e.category}</td>
+                            <td>{e.subject}</td>
+                            <td>{e.description}</td>
                             <td>Submitted</td>
+                            <td>Thank you, We have warned Call center to solve problem</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        // <tr>
+                        //     <td>235</td>
+                        //     <td>Environment</td>
+                        //     <td>Need tree in office</td>
+                        //     <td>I love green space</td>
+                        //     <td>Submitted</td>
+                        //     <td></td>
+                        // </tr>
+                        );
+                    })
+                  : "Loading.."}
+                        {/* <tr>
                             <td>231</td>
                             <td>Engagement</td>
                             <td>Need benefit for employee</td>
@@ -96,7 +135,7 @@ class Tracking extends Component {
                             <td>No Response</td>
                             <td>Done</td>
                             <td>Thank you, We have warned Call center to solve problem</td>
-                        </tr>
+                        </tr> */}
                         </tbody>
                         </Table>
                     </CardBlock>
