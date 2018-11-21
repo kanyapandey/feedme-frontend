@@ -6,14 +6,32 @@ class Tracking extends Component {
         super(props);
         this.state = {
             employee: [],
-            loading: true
+            loading: true,
+            shown: true
           };
         this.clickHome = this.clickHome.bind(this);
-
+        this.check = this.check.bind(this);
         let userId = localStorage.getItem('userId');
+        // axios({
+        //     method: "get",
+        //     url: "http://58.137.14.227:1337/api/v1/feed/getFeed/"+ userId
+        //   }).then(response => {
+        //     if (response.data.success === true) {
+        //         this.setState({
+        //             employee: response.data.data,
+        //             loading: false
+        //           });
+        //     } else {
+        //         this.setState({
+        //             loading: false
+        //           });
+        //       alert(response.data.msg);
+        //     }
+        //   });
+          /* LOCALHOST */
         axios({
             method: "get",
-            url: "http://localhost:1337/api/v1/feed/getFeed/"+ userId
+            url: "https://iamfeedme.herokuapp.com/api/v1/feed/getFeed/"+ userId
           }).then(response => {
             if (response.data.success === true) {
                 this.setState({
@@ -31,15 +49,28 @@ class Tracking extends Component {
     clickHome(){
         this.props.history.push('/feedhome');
     }
+    check(){
+        this.setState({
+			shown: !this.state.shown
+		});
+    }
   render() {
+    var shown = {
+        display: this.state.shown ? "block" : "none"
+    };
+    
+    var hidden = {
+        display: this.state.shown ? "none" : "block"
+    }
     const {employee,loading} = this.state;
     return (
         <Container>
             <br/>
-            <Breadcrumb>
-                <BreadcrumbItem><a onClick={this.clickHome}>Home</a></BreadcrumbItem>
-                <BreadcrumbItem active>Tracking</BreadcrumbItem>
-            </Breadcrumb>
+            <Breadcrumb id="breadcrumb">
+                <BreadcrumbItem><a onClick={this.clickHome}><span class="icon icon-home"> </span></a></BreadcrumbItem>
+                <BreadcrumbItem><a><span class="icon icon-double-angle-right"></span> Tracking</a></BreadcrumbItem> 
+            </Breadcrumb>  
+            <div style={ hidden }>
             <Row>
                 <Col>
                     <h1 className="statush1">Status Feedback ID : 231 </h1>
@@ -67,6 +98,7 @@ class Tracking extends Component {
                     </div>
                 </Col>
             </Row>
+            </div>
             <br/>
             <br/>
             <Row>
@@ -93,6 +125,7 @@ class Tracking extends Component {
                             <th>Description</th>
                             <th>Status</th>
                             <th>Response from IAM</th>
+                            <th>Submitted Date</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -101,41 +134,17 @@ class Tracking extends Component {
                       ? employee.map(e => {
                           return (
                             <tr>
-                            <td>235</td>
+                            <td>{e.feedId}</td>
                             <td>{e.category}</td>
                             <td>{e.subject}</td>
                             <td>{e.description}</td>
-                            <td>Submitted</td>
+                            <td onClick={this.check}>Submitted</td>
                             <td>Thank you, We have warned Call center to solve problem</td>
-                            <td></td>
+                            <td>{e.date}</td>
                         </tr>
-                        // <tr>
-                        //     <td>235</td>
-                        //     <td>Environment</td>
-                        //     <td>Need tree in office</td>
-                        //     <td>I love green space</td>
-                        //     <td>Submitted</td>
-                        //     <td></td>
-                        // </tr>
                         );
                     })
                   : "Loading.."}
-                        {/* <tr>
-                            <td>231</td>
-                            <td>Engagement</td>
-                            <td>Need benefit for employee</td>
-                            <td>I want party every month</td>
-                            <td>Take action</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>122</td>
-                            <td>Call Center</td>
-                            <td>Can't Contact</td>
-                            <td>No Response</td>
-                            <td>Done</td>
-                            <td>Thank you, We have warned Call center to solve problem</td>
-                        </tr> */}
                         </tbody>
                         </Table>
                     </CardBlock>

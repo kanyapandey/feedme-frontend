@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Breadcrumb, BreadcrumbItem, Container, Row, Col, Form, FormGroup, Label} from 'reactstrap';
+import { Button, Input, Modal, ModalHeader, ModalBody, ModalFooter, Breadcrumb, BreadcrumbItem, Container, Row, Col, Form, FormGroup, Label} from 'reactstrap';
 
 import axios from "axios";
 class FeedForm extends Component {
@@ -10,11 +10,18 @@ class FeedForm extends Component {
             subject: '',
             rating: '',
             description: '',
-            contact: ''
+            contact: '',     
+            warning: false,
         };
         this.clickHome = this.clickHome.bind(this);
         this.home = this.home.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.toggleWarning = this.toggleWarning.bind(this);
+    }
+    toggleWarning() {
+        this.setState({
+            warning: !this.state.warning
+        });
     }
     handleChange(event)  {
         const target = event.target;
@@ -33,7 +40,7 @@ class FeedForm extends Component {
     //     let email = localStorage.getItem('email');
     //     axios({
     //         method: "post",
-    //         url: "https://feedforward.iamconsulting.co.th:53093/api/v1/feed/feed-form",
+    //         url: "http://58.137.14.227:1337/api/v1/feed/feed-form",
     //         data: {   
     //             email: email,
     //             category: this.state.select,
@@ -52,12 +59,13 @@ class FeedForm extends Component {
     //         }
     //       });
     // }
+    /* LOCALHOST */
     home(){
 
         let email = localStorage.getItem('email');
         axios({
             method: "post",
-            url: "http://localhost:1337/api/v1/feed/feed-form",
+            url: "https://iamfeedme.herokuapp.com/api/v1/feed/feed-form",
             data: {   
                 email: email,
                 category: this.state.select,
@@ -81,10 +89,12 @@ class FeedForm extends Component {
         <Container>
         <br />
 
-        <Breadcrumb>
-            <BreadcrumbItem><a onClick={this.clickHome}>Home</a></BreadcrumbItem>
-            <BreadcrumbItem active>FeedForm</BreadcrumbItem>
+        <Breadcrumb id="breadcrumb">
+            <BreadcrumbItem><a onClick={this.clickHome}><span class="icon icon-home"> </span></a></BreadcrumbItem>
+            <BreadcrumbItem><a><span class="icon icon-double-angle-right"></span> FeedForm</a></BreadcrumbItem> 
+            
         </Breadcrumb>
+       
         <br/>
         <Row>
             <Col>
@@ -94,7 +104,7 @@ class FeedForm extends Component {
                     </Row>
                     <br />
                     <Row>
-                        <Col xs="7" sm="10">
+                        <Col xs="10" sm="10">
                             <Form className="feedformgroup">
                                 <FormGroup>
                                     <Label for="select">Select Category * </Label>
@@ -190,17 +200,31 @@ class FeedForm extends Component {
                                     <Input type="textarea" value={this.state.description} 
                                 onChange={this.handleChange} name="description" id="description" />
                                 </FormGroup>
-                                {/* <FormGroup>
-                                    <Label for="url">Add URL Picture </Label>
-                                    <Input type="text" name="url" id="url" placeholder="http://" />
-                                </FormGroup> */}
                                 <FormGroup>
-                                    <Label for="contact">Contact</Label>
+                                    <Label for="url">Add URL Picture (optional)</Label>
+                                    <Input type="text" name="url" id="url" placeholder="http://" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="contact">Contact (optional)</Label>
                                     <Input type="number" name="contact" value={this.state.contact} 
                                 onChange={this.handleChange} id="contact" placeholder="Contact" />
                                 </FormGroup>
                                 <br />
-                                <Button  onClick={this.home} color="success" size="lg" block>Submit</Button>
+                                {/* <Button  onClick={this.home} color="success" size="lg" block>Submit</Button> */}
+                                <div>
+                                    <Button color="success" size="lg" block onClick={this.toggleWarning}>Submit</Button>
+                                    <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
+                                        className={'modal-warning ' + this.props.className}>
+                                    <ModalHeader toggle={this.toggleWarning}></ModalHeader>
+                                    <ModalBody>
+                                        Are you Sure that you wanna submit or cancel the submission ?
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button color="warning" onClick={this.home}>Submit</Button>{' '}
+                                        <Button color="secondary" onClick={this.toggleWarning}>Cancel</Button>
+                                    </ModalFooter>
+                                    </Modal>
+                                </div>
                             </Form>
                         </Col>
                     </Row>

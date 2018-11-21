@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import { Button, InputGroup, Input, Container, Row, Label, Col } from 'reactstrap';
-
-import axios from "axios";
-
-import { ToastContainer, toast } from "react-toastify";
-
-class CodeValidate extends Component {
+import { Button, InputGroup, Form, FormGroup, Input, Container, Row, Label, Col } from 'reactstrap';
+import axios from 'axios';
+class Login extends Component {
   constructor(props){
       super(props);
       this.state = {
-          code: ''
+        username: '',
+        password: ''
       };
       this.home = this.home.bind(this);
       this.handleChange = this.handleChange.bind(this);
-      
   }
   handleChange(event)  {
     const target = event.target;
@@ -24,49 +20,41 @@ class CodeValidate extends Component {
       [name]: value
     });
   }
-  /* LOCALHOST http://192.168.11.79:1337/api/v1/users/checkCode */
   home(){
+    // axios({
+    //     method: "post",
+    //     url: "http://58.137.14.227:1337/api/v1/updateprofile/login",
+    //     data: {   
+    //         username: this.state.username,
+    //         password: this.state.password
+    //     }
+    //   }).then(response => {
+    //     if (response.data.success === true) {
+    //         localStorage.setItem('email', response.data.msg['email']);
+    //         localStorage.setItem('userId', response.data.msg['userId']);
+    //         this.props.history.push('FeedHome');
+    //     } else {
+    //       alert(response.data.msg);
+    //     }
+    //   });
+      /* LOCALHOST */
     axios({
         method: "post",
-        url: "https://iamfeedme.herokuapp.com/api/v1/users/checkCode",
+        url: "https://iamfeedme.herokuapp.com/api/v1/updateprofile/login",
         data: {   
-            vCode: this.state.code
+            username: this.state.username,
+            password: this.state.password
         }
       }).then(response => {
         if (response.data.success === true) {
-            localStorage.setItem('token', response.data.token);
-            console.log("response",response.data.msg)
             localStorage.setItem('email', response.data.msg['email']);
             localStorage.setItem('userId', response.data.msg['userId']);
-            toast.success("Welcome to Feedme Forward", {
-                position: toast.POSITION.TOP_CENTER
-              });
-            this.props.history.push('feedhome');
+            this.props.history.push('FeedHome');
         } else {
           alert(response.data.msg);
         }
       });
   }
-//   home(){
-//     axios({
-//         method: "post",
-//         url: "http://58.137.14.227:1337/api/v1/users/checkCode",
-//         data: {   
-//             vCode: this.state.code
-//         }
-//       }).then(response => {
-//         if (response.data.success === true) {
-//             localStorage.setItem('token', response.data.token);
-//             console.log("response",response.data.msg)
-//             localStorage.setItem('email', response.data.msg['email']);
-//             localStorage.setItem('userId', response.data.msg['userId']);
-//             this.props.history.push('feedhome');
-//         } else {
-//           alert(response.data.msg);
-//         }
-//       });
-//   }
-
   render() {
     return (
         <Container>
@@ -76,7 +64,7 @@ class CodeValidate extends Component {
                 <br />
                 <Row>
                     <Col>
-                        <h1>Validate Code</h1>
+                        <h1>Login</h1>
                     </Col>
                 </Row>
                 <br />
@@ -84,13 +72,20 @@ class CodeValidate extends Component {
                     <Col>
                         <InputGroup>
                         <div className="formgroup" id="name-form">
-                            <Label className="label" for="name">Verify Code *</Label>
+                            <Label className="label" for="name">Username *</Label>
                             <Input className="input" 
                                 id="code"
                                 type="text"
-                                name="code" value={this.state.code} 
+                                name="username" value={this.state.username} 
                                 onChange={this.handleChange}
-                                     placeholder="56734" />
+                                     placeholder="username" />
+                            <Label className="label" for="name">Password *</Label>
+                            <Input className="input" 
+                                id="code"
+                                type="password"
+                                name="password" value={this.state.password} 
+                                onChange={this.handleChange}
+                                    placeholder="password" />
                         </div>
                         </InputGroup>
                     </Col>
@@ -111,4 +106,4 @@ class CodeValidate extends Component {
   }
 }
 
-export default CodeValidate;
+export default Login;
