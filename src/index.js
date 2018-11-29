@@ -21,10 +21,15 @@ import CodeValidate from './views/CodeValidate/';
 // import UserProfile from './views/UserProfile/';
 import UpdateUser from './views/UpdateUser/';
 import FeedHome from './views/FeedHome/';
+import FinalFeedHome from './views/FinalFeedHome/';
+import FinalFeedForm from './views/FinalFeedForm/';
+import FinalTracking from './views/FinalTracking/';
+import FinalUpdateUser from './views/FinalUpdateUser/';
 import FeedForm from './views/FeedForm/';
 // import Message from './views/Message/';
 // import Reward from './views/Reward/';
 import Tracking from './views/Tracking/';
+import EditUser from './views/EditUser/';
 import Login from './views/Login/';
 
 import { ToastContainer, toast } from "react-toastify";
@@ -48,6 +53,11 @@ ReactDOM.render((
       {/* <Route exact path="/userprofile" name="UserProfile" component={UserProfile}/> */}
       <Route exact path="/updateuser" name="UpdateUser" component={UpdateUser}/>
       <Route exact path="/feedhome" name="FeedHome" component={FeedHome}/>
+      <Route exact path="/finalfeedhome" name="FinalFeedHome" component={FinalFeedHome}/>
+      <Route exact path="/finalfeedform" name="FinalFeedForm" component={FinalFeedForm}/>
+      <Route exact path="/finaltracking" name="FinalTracking" component={FinalTracking}/>
+      <Route exact path="/edituser" name="EditUser" component={EditUser}/>
+      <Route exact path="/finalupdateuser" name="FinalUpdateUser" component={FinalUpdateUser}/>
       <Route exact path="/feedform" name="FeedForm" component={FeedForm}/>
       <Route exact path="/login" name="Login" component={Login}/>
 

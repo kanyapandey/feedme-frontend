@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, InputGroup, Form, Breadcrumb, BreadcrumbItem,FormGroup, Input, Container, Row, Label, Col } from 'reactstrap';
 
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+
 class UpdateUser extends Component {
   constructor(props){
     super(props);
@@ -30,11 +32,13 @@ handleChange(event)  {
   }
   home(){
     //   this.props.history.push('FeedHome');
-    let user_email = localStorage.getItem('email');
+    let user_email = localStorage.getItem('email');    
+    let userId = localStorage.getItem('userId');
+
     /* LOCALHOST */
     axios({
         method: "post",
-        url: "https://iamfeedme.herokuapp.com/api/v1/updateprofile/update-profile",
+        url: "https://iamfeedme.herokuapp.com/api/v1/updateprofile/update-profile/"+ userId,
         data: {   
             user_email: user_email,
             username: this.state.username,
@@ -49,44 +53,27 @@ handleChange(event)  {
         }
       }).then(response => {
         if (response.data.success === true) {
+            toast.success("Successfully Updated user profile", {
+                position: toast.POSITION.TOP_CENTER
+              });
             this.props.history.push('FeedHome');
         } else {
           alert(response.data.msg);
         }
       });
-    // axios({
-    //     method: "post",
-    //     url: "http://58.137.14.227:1337/api/v1/updateprofile/update-profile",
-    //     data: {   
-    //         user_email: user_email,
-    //         username: this.state.username,
-    //         password: this.state.password,
-    //         birthyear: this.state.birthyear,
-    //         gender: this.state.gender,
-    //         status: this.state.status,
-    //         bu: this.state.bu,
-    //         email: this.state.email,
-    //         phone: this.state.phone
-
-    //     }
-    //   }).then(response => {
-    //     if (response.data.success === true) {
-    //         this.props.history.push('FeedHome');
-    //     } else {
-    //       alert(response.data.msg);
-    //     }
-    //   });
   }    
   clickHome(){
     this.props.history.push('/feedhome');
   }
+ 
   render() {
+
     return (
         <Container>
             <br/>
             <Breadcrumb id="breadcrumb">
                 <BreadcrumbItem><a onClick={this.clickHome}><span class="icon icon-home"> </span></a></BreadcrumbItem>
-                <BreadcrumbItem><a><span class="icon icon-double-angle-right"></span> Tracking</a></BreadcrumbItem> 
+                <BreadcrumbItem><a><span class="icon icon-double-angle-right"></span> Update User</a></BreadcrumbItem> 
             </Breadcrumb>
             <Row>
             <Col>
@@ -98,13 +85,13 @@ handleChange(event)  {
                             <h1 className="h1User">User Profile</h1>
                         </div>
                         <div className="editIcon">
-                            <i className="fa fa-edit"></i>
+                            {/* <i className="fa fa-edit"></i> */}
                         </div>
                     </Col>
                 </Row>
                 <br />
                 <Row>
-                    <Col xs="7" sm="10">
+                    <Col xs="10" sm="10">
                     <Form className="feedformgroup">
                                 <FormGroup>
                                     <Label for="username">Username * </Label>
@@ -120,21 +107,18 @@ handleChange(event)  {
                                     <Label for="year">Birth Year * </Label>
                                     <Input type="select" name="birthyear" id="year" value={this.state.handleChange}
                                         onChange={this.handleChange}>
-                                        <option>1999</option>
-                                        <option>1998</option>
-                                        <option>1997</option>
-                                        <option>1996</option>
-                                        <option>1995</option>
-                                        <option>1994</option>
-                                        <option>1993</option>
-                                        <option>1992</option>
-                                        <option>1991</option>
+                                        <option>---Select----</option>
+                                        <option>1955-1964</option>
+                                        <option>1965-1979</option>
+                                        <option>1980-1997</option>
+                                        <option>1998+</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="gender">Gender * </Label>
                                     <Input type="select" name="gender" id="gender" value={this.state.handleChange}
                                             onChange={this.handleChange}>
+                                        <option>---Select----</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                         <option>Other</option>
@@ -144,6 +128,8 @@ handleChange(event)  {
                                     <Label for="status">Status (optional) </Label>
                                     <Input type="select" name="status" id="status" value={this.state.handleChange}
                                             onChange={this.handleChange}>
+
+                                        <option>---Select----</option>
                                         <option>Single</option>
                                         <option>Married</option>
                                         <option>Divorce</option>
@@ -153,8 +139,20 @@ handleChange(event)  {
                                     <Label for="bu">BU (optional) </Label>
                                     <Input type="select" name="bu" id="bu" value={this.state.handleChange}
                                             onChange={this.handleChange}>
+
+                                        <option>---Select----</option>
+                                        <option>ECM</option>
+                                        <option>iCoach</option>
+                                        <option>Basis</option>
+                                        <option>CODEIT</option>
+                                        <option>ERP</option>
+                                        <option>iHR</option>
+                                        <option>BOS</option>
+                                        <option>MGT</option>
+                                        <option>E-Commerce</option>
+                                        <option>SDS-ERP</option>
+                                        <option>SDS-iHR</option>
                                         <option>Swish</option>
-                                        <option>Other</option>
                                     </Input>
                                 </FormGroup>
                                 <FormGroup>

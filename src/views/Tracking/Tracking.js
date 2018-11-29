@@ -47,7 +47,8 @@ class Tracking extends Component {
           });
     }
     clickHome(){
-        this.props.history.push('/feedhome');
+        setTimeout(() => { this.props.history.push('/feedhome');
+        }, 1000)
     }
     check(){
         this.setState({
@@ -139,7 +140,7 @@ class Tracking extends Component {
                             <td>{e.subject}</td>
                             <td>{e.description}</td>
                             <td onClick={this.check}>Submitted</td>
-                            <td>Thank you, We have warned Call center to solve problem</td>
+                            <td>Waiting for response</td>
                             <td>{e.date}</td>
                         </tr>
                         );

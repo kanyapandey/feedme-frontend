@@ -24,7 +24,6 @@ class CodeValidate extends Component {
       [name]: value
     });
   }
-  /* LOCALHOST http://192.168.11.79:1337/api/v1/users/checkCode */
   home(){
     axios({
         method: "post",
@@ -43,29 +42,12 @@ class CodeValidate extends Component {
               });
             this.props.history.push('feedhome');
         } else {
-          alert(response.data.msg);
+          toast.error("Wrong Verification Code", {
+            position: toast.POSITION.TOP_CENTER
+          });
         }
       });
   }
-//   home(){
-//     axios({
-//         method: "post",
-//         url: "http://58.137.14.227:1337/api/v1/users/checkCode",
-//         data: {   
-//             vCode: this.state.code
-//         }
-//       }).then(response => {
-//         if (response.data.success === true) {
-//             localStorage.setItem('token', response.data.token);
-//             console.log("response",response.data.msg)
-//             localStorage.setItem('email', response.data.msg['email']);
-//             localStorage.setItem('userId', response.data.msg['userId']);
-//             this.props.history.push('feedhome');
-//         } else {
-//           alert(response.data.msg);
-//         }
-//       });
-//   }
 
   render() {
     return (
@@ -90,7 +72,7 @@ class CodeValidate extends Component {
                                 type="text"
                                 name="code" value={this.state.code} 
                                 onChange={this.handleChange}
-                                     placeholder="56734" />
+                                     placeholder="" />
                         </div>
                         </InputGroup>
                     </Col>

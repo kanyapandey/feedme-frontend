@@ -10,33 +10,15 @@ class FeedHome extends Component {
       this.reward = this.reward.bind(this);
       this.tracking = this.tracking.bind(this);
       this.updateUser = this.updateUser.bind(this);
+      this.login = this.login.bind(this);
 
         this.state = {
             count: "0",
+            username: ''
         };   
 
       let userId = localStorage.getItem('userId');
       var self = this;
-    //   axios({
-    //     method: "get",
-    //     url: "http://58.137.14.227:1337/api/v1/feed/getCount/"+ userId
-    //   }).then(response => {
-    //     if (response.data.success === true) {
-    //         console.log("last",response.data.data[0].count)
-    //         localStorage.setItem('counts', response.data.data[0].count);
-    //         let count = localStorage.getItem('counts');
-    //         console.log("now",count);
-    //         this.state = {
-    //             count: count,
-    //         }; 
-    //         self.setState({count: count})
-    //         console.log("this state count now", this.state.count)
-    //     } else {
-    //       alert(response.data.msg);
-    //     }
-    //   });
-
-      console.log("final count", this.state.count)
       /* LOCALHOST */
       axios({
           method: "get",
@@ -56,7 +38,21 @@ class FeedHome extends Component {
             alert(response.data.msg);
           }
         });
-
+        axios({
+            method: "get",
+            url: "https://iamfeedme.herokuapp.com/api/v1/updateprofile/userprofile/"+ userId
+          }).then(response => {
+            if (response.data.success === true) {
+                console.log("username",response.data.data[0])
+                let username = response.data.data[0].username;
+                this.state = {
+                    username: username
+                }; 
+                self.setState({username:username})
+            } else {
+              alert(response.data.msg);
+            }
+          });
         console.log("final count", this.state.count)
 }
  
@@ -75,18 +71,21 @@ class FeedHome extends Component {
   updateUser(){
     this.props.history.push('/updateuser');
   }
+  login(){
+    this.props.history.push('/login');
+  }
   render() {
     return (
         <Container>
         <br />
         <Row className="welcome">
-            <Col xs="6">
-                <h2>Welcome Anonymous</h2>
+            <Col xs="4">
+                <h2>Welcome </h2><h2>{this.state.username}</h2>
             </Col>
-            <Col xs="6">
+            <Col xs="8">
                 <div className="collect">
                     <span className="arrow bounce">
-                        <i className="fa fa-angle-double-right fa-5x" aria-hidden="true"></i>
+                        <i className="fa fa-angle-double-right fa-3x" aria-hidden="true"></i>
                     </span>
                     <span onClick={this.updateUser} className="user fa-stack fa-lg">
                         <i className="fa fa-circle-thin fa-stack-2x"></i>
@@ -100,6 +99,10 @@ class FeedHome extends Component {
                         <div className="count">{this.state.count}</div>
                     </span>
                 </div>
+
+                <span className="logout">
+                    <i onClick={this.login} class="fa fa-share-square-o"></i>
+                </span>
             </Col>
 
         </Row>

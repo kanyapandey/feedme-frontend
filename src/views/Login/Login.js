@@ -49,7 +49,7 @@ class Login extends Component {
         if (response.data.success === true) {
             localStorage.setItem('email', response.data.msg['email']);
             localStorage.setItem('userId', response.data.msg['userId']);
-            this.props.history.push('FeedHome');
+            this.props.history.push('FinalFeedHome');
         } else {
           alert(response.data.msg);
         }

@@ -8,6 +8,7 @@ import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
 import Dashboard from '../../views/Dashboard/';
+import CodeValidate from '../../views/CodeValidate/';
 
 class Full extends Component {
   render() {
@@ -20,8 +21,8 @@ class Full extends Component {
             <Breadcrumb />
             <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
-                <Redirect from="/" to="/dashboard"/>
+                <Route path="/codevalidate" name="CodeValidate" component={CodeValidate}/>
+                <Redirect from="/" to="/codevalidate"/>
               </Switch>
             </Container>
           </main>

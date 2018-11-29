@@ -111,6 +111,7 @@ class FeedForm extends Component {
                                     <Input type="select" name="select" 
                                             value={this.state.handleChange}
                                             onChange={this.handleChange} id="select">
+                                        <option>---Select----</option>
                                         <option>Social & Communication</option>
                                         <option>Onboard</option>
                                         <option>Learning</option>
