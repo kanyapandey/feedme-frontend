@@ -45,6 +45,8 @@ class FeedHome extends Component {
             if (response.data.success === true) {
                 console.log("username",response.data.data[0])
                 let username = response.data.data[0].username;
+
+                localStorage.setItem('username', response.data.data[0].username);
                 this.state = {
                     username: username
                 }; 
@@ -73,7 +75,8 @@ class FeedHome extends Component {
   }
   login(){
     this.props.history.push('/login');
-  }
+    }
+   
   render() {
     return (
         <Container>

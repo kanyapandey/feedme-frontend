@@ -74,7 +74,7 @@ class FinalTracking extends Component {
             <div style={ hidden }>
             <Row>
                 <Col>
-                    <h1 className="statush1">Status Feedback ID : 231 </h1>
+                    <h1 className="statush1">Status Feedback </h1>
                 </Col>
             </Row>
             <Row>

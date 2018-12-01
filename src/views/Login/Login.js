@@ -11,6 +11,7 @@ class Login extends Component {
       this.home = this.home.bind(this);
       this.handleChange = this.handleChange.bind(this);
   }
+
   handleChange(event)  {
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -49,12 +50,19 @@ class Login extends Component {
         if (response.data.success === true) {
             localStorage.setItem('email', response.data.msg['email']);
             localStorage.setItem('userId', response.data.msg['userId']);
-            this.props.history.push('FinalFeedHome');
+            this.props.history.push('/FinalFeedHome');
         } else {
           alert(response.data.msg);
         }
       });
   }
+  componentWillMount(){
+    let username = localStorage.getItem('username');
+    console.log("username test",username)
+    if(username){
+      this.props.history.push('/dashboard');
+    }
+}
   render() {
     return (
         <Container>

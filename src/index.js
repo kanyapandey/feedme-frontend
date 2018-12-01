@@ -32,6 +32,7 @@ import Tracking from './views/Tracking/';
 import EditUser from './views/EditUser/';
 import Login from './views/Login/';
 
+import Dashboard from './views/Dashboard/';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -64,6 +65,7 @@ ReactDOM.render((
       {/* <Route exact path="/message" name="Message" component={Message}/> 
       <Route exact path="/reward" name="Reward" component={Reward}/>  */}
 
+      <Route exact path="/dashboard" name="dashboard" component={Dashboard}/>
       <Route exact path="/message" name="Message" component={FeedHome}/> 
       <Route exact path="/reward" name="Reward" component={FeedHome}/> 
 

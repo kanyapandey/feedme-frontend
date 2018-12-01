@@ -94,6 +94,7 @@ class FinalFeedHome extends Component {
   login(){
     this.props.history.push('/login');
   }
+
   render() {
     return (
         <Container>

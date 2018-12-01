@@ -74,7 +74,7 @@ class Tracking extends Component {
             <div style={ hidden }>
             <Row>
                 <Col>
-                    <h1 className="statush1">Status Feedback ID : 231 </h1>
+                    <h1 className="statush1">Status Feedback </h1>
                 </Col>
             </Row>
             <Row>
@@ -137,8 +137,8 @@ class Tracking extends Component {
                             <tr>
                             <td>{e.feedId}</td>
                             <td>{e.category}</td>
-                            <td>{e.subject}</td>
-                            <td>{e.description}</td>
+                            <td className="tdsub">{e.subject}</td>
+                            <td className="tdsub">{e.description}</td>
                             <td onClick={this.check}>Submitted</td>
                             <td>Waiting for response</td>
                             <td>{e.date}</td>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Modal, ModalHeader, ModalBody, ModalFooter, Breadcrumb, BreadcrumbItem, Container, Row, Col, Form, FormGroup, Label} from 'reactstrap';
 
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 class FeedForm extends Component {
     constructor(props){
@@ -62,6 +63,11 @@ class FeedForm extends Component {
     /* LOCALHOST */
     home(){
 
+        if(this.state.subject.length > 350 || this.state.description > 350){
+            toast.error("Limit to 350 characters only", {
+                position: toast.POSITION.TOP_CENTER
+              });
+        }else {
         let email = localStorage.getItem('email');
         axios({
             method: "post",
@@ -83,6 +89,7 @@ class FeedForm extends Component {
               alert(response.data.msg);
             }
           });
+        }
     }
   render() {
     return (

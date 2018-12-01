@@ -7,7 +7,7 @@ import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
-import Dashboard from '../../views/Dashboard/';
+// import Dashboard from '../../views/Dashboard/';
 import CodeValidate from '../../views/CodeValidate/';
 
 class Full extends Component {
@@ -21,6 +21,7 @@ class Full extends Component {
             <Breadcrumb />
             <Container fluid>
               <Switch>
+                {/* <Route path="/dashboard" name="dashboard" component={Dashboard}/> */}
                 <Route path="/codevalidate" name="CodeValidate" component={CodeValidate}/>
                 <Redirect from="/" to="/codevalidate"/>
               </Switch>

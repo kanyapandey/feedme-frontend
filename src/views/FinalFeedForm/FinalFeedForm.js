@@ -85,6 +85,7 @@ class FinalFeedForm extends Component {
           });
     }
   render() {
+
     return (
         <Container>
         <br />
@@ -199,7 +200,7 @@ class FinalFeedForm extends Component {
                                 </FormGroup> */}
                                 <FormGroup>
                                     <Label for="description">Description </Label>
-                                    <Input type="textarea" value={this.state.description} 
+                                    <Input type="textarea"  value={this.state.description} 
                                 onChange={this.handleChange} name="description" id="description" />
                                 </FormGroup>
                                 <FormGroup>

@@ -32,7 +32,7 @@ class CodeValidate extends Component {
             vCode: this.state.code
         }
       }).then(response => {
-        if (response.data.success === true) {
+        if (response.data.success === true && response.data.msg['firstTime'] === "true") {
             localStorage.setItem('token', response.data.token);
             console.log("response",response.data.msg)
             localStorage.setItem('email', response.data.msg['email']);

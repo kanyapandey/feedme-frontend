@@ -241,7 +241,12 @@ body {
   -webkit-animation: bounce 2s infinite;
   animation: bounce 2s infinite;
 }
-
+.display-linebreak {
+  white-space: pre-line;
+}
+.tdsub {
+  word-break: break-all;
+}
 body {
   background: url("../public/img/feedforward.jpg") no-repeat fixed;
   -webkit-background-size: cover;
