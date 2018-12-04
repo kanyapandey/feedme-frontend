@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Input, Modal, ModalHeader, ModalBody, ModalFooter, Breadcrumb, BreadcrumbItem, Container, Row, Col, Form, FormGroup, Label} from 'reactstrap';
+import { ToastContainer, toast } from "react-toastify";
 
 import axios from "axios";
 class FinalFeedForm extends Component {
@@ -62,12 +63,17 @@ class FinalFeedForm extends Component {
     /* LOCALHOST */
     home(){
 
-        let email = localStorage.getItem('email');
+        if(this.state.subject.length > 350 || this.state.description > 350){
+            toast.error("Limit to 350 characters only", {
+                position: toast.POSITION.TOP_CENTER
+              });
+        }else {
+            let userId = localStorage.getItem('userId');
+            console.log("userId",userId)
         axios({
             method: "post",
-            url: "https://iamfeedme.herokuapp.com/api/v1/feed/feed-form",
+            url: "https://iamfeedme.herokuapp.com/api/v1/feed/feed-form/" + userId,
             data: {   
-                email: email,
                 category: this.state.select,
                 subject: this.state.subject,
                 rating: this.state.rating,
@@ -78,11 +84,12 @@ class FinalFeedForm extends Component {
           }).then(response => {
             if (response.data.success === true) {
                 localStorage.setItem('count', response.data.msg);
-                this.props.history.push('FeedHome');
+                this.props.history.push('FinalFeedHome');
             } else {
               alert(response.data.msg);
             }
           });
+        }
     }
   render() {
 

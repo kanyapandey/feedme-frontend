@@ -69,11 +69,13 @@ class FeedForm extends Component {
               });
         }else {
         let email = localStorage.getItem('email');
+
+        let userId = localStorage.getItem('userId');
+        console.log("userId",userId)
         axios({
             method: "post",
-            url: "https://iamfeedme.herokuapp.com/api/v1/feed/feed-form",
+            url: "https://iamfeedme.herokuapp.com/api/v1/feed/feed-form/" +userId,
             data: {   
-                email: email,
                 category: this.state.select,
                 subject: this.state.subject,
                 rating: this.state.rating,
